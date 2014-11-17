@@ -10,7 +10,6 @@ import os
 
 METODOS_PERMITIDOS = ["INVITE","BYE","ACK"]
 
-
 #Datos de conexión
 
 if not os.path.exists(sys.argv[3]) or len(sys.argv) != 4:
@@ -59,13 +58,8 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                 else:
                     self.wfile.write("SIP/2.0 400 Bad Request\r\n")
             # Si no hay más líneas salimos del bucle infinito
-
-
-           
-
             if not line:
                 break
-
 
 if __name__ == "__main__":
     # Creamos servidor de eco y escuchamos
