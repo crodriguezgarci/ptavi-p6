@@ -51,7 +51,7 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                             print "La canción ha terminado"
                         elif line[0] == "BYE":
                             self.wfile.write("SIP/2.0 200 OK\r\n\r\n")
-                        elif not line[0] in METODOS_PERMITIDOS:
+                        elif line[0] not in METODOS_PERMITIDOS:
                             self.wfile.write("SIP/2.0 405 Method Not Allowed\r\n")
                     else:
                         self.wfile.write("SIP/2.0 400 Bad Request\r\n")
