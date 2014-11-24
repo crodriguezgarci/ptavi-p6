@@ -44,7 +44,7 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                         and ('@' in line[1]):
                         if line[0] == "INVITE":
                             self.wfile.write("SIP/2.0 100 Trying\r\n\r\n")
-                            self.wfile.write("SIP/2.0 180 Ring\r\n\r\n")
+                            self.wfile.write("SIP/2.0 180 Ringing\r\n\r\n")
                             self.wfile.write("SIP/2.0 200 OK\r\n\r\n")
                         elif line[0] == "ACK":
                             print "Comienza el RTP " + COMANDO
