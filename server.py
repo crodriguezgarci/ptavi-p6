@@ -8,7 +8,7 @@ import SocketServer
 import os.path
 import os
 
-METODOS_PERMITIDOS = ["INVITE","BYE","ACK"]
+METODOS_PERMITIDOS = ["INVITE", "BYE", "ACK"]
 
 #Datos de conexión
 
@@ -23,7 +23,8 @@ AUDIO = sys.argv[3]
 
 PORT_RTP = 23032
 SERVER_RTP = "127.0.0.1"
-COMANDO = './mp32rtp -i ' + SERVER_RTP + ' -p ' + str(PORT_RTP)  + ' < ' + AUDIO
+COMANDO = './mp32rtp -i ' + SERVER_RTP + ' -p ' + str(PORT_RTP) + ' < ' + AUDIO
+
 
 class EchoHandler(SocketServer.DatagramRequestHandler):
     """
@@ -32,7 +33,6 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
 
     def handle(self):
         # Escribe dirección y puerto del cliente (de tupla client_address)
-        
         while 1:
             # Leyendo línea a línea lo que nos envía el cliente
             line = self.rfile.read()
@@ -40,7 +40,8 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                 if "\r\n\r\n" in line:
                     print "El cliente nos manda " + line
                     line = line.split()
-                    if ('sip:' in line[1][:4]) and (line[2] == "SIP/2.0") and ('@' in line[1]):
+                    if ('sip:' in line[1][:4]) and (line[2] == "SIP/2.0") \
+                        and ('@' in line[1]):
                         if line[0] == "INVITE":
                             self.wfile.write("SIP/2.0 100 Trying\r\n\r\n")
                             self.wfile.write("SIP/2.0 180 Ring\r\n\r\n")
@@ -52,11 +53,12 @@ class EchoHandler(SocketServer.DatagramRequestHandler):
                         elif line[0] == "BYE":
                             self.wfile.write("SIP/2.0 200 OK\r\n\r\n")
                         elif line[0] not in METODOS_PERMITIDOS:
-                            self.wfile.write("SIP/2.0 405 Method Not Allowed\r\n")
+                            self.wfile.write("SIP/2.0 405 Method \
+                                Not Allowed\r\n\r\n")
                     else:
-                        self.wfile.write("SIP/2.0 400 Bad Request\r\n")
+                        self.wfile.write("SIP/2.0 400 Bad Request\r\n\r\n")
                 else:
-                    self.wfile.write("SIP/2.0 400 Bad Request\r\n")
+                    self.wfile.write("SIP/2.0 400 Bad Request\r\n\r\n")
             # Si no hay más líneas salimos del bucle infinito
             if not line:
                 break
