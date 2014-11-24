@@ -57,6 +57,6 @@ if (data[0] == "SIP/2.0 100 Trying"):
 
 print "Terminando socket..."
 
-# Cerramos todo
+# Cerramos todo.
 my_socket.close()
 print "Fin."
