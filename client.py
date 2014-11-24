@@ -50,7 +50,7 @@ except socket.error:
 data = data.split('\r\n\r\n')
 
 if (data[0] == "SIP/2.0 100 Trying"):
-        if (data[1] == "SIP/2.0 180 Ring"):
+        if (data[1] == "SIP/2.0 180 Ringing"):
             if (data[2] == "SIP/2.0 200 OK"):
                 print "Enviando: " + ACK
                 my_socket.send(ACK + '\r\n')
