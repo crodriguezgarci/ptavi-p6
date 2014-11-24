@@ -14,7 +14,7 @@ import socket
 try:
     #Parametros para la conexión.
     METODO = sys.argv[1]
-    SIP = sys.argv[2] 
+    SIP = sys.argv[2]
 except IndexError:
     print "Usage: python client.py method receiver@IP:SIPport"
     sys.exit()
@@ -31,8 +31,6 @@ PORT = int(SIP[1][1])
 ACK = "ACK" + ' sip:' + USER + '@' + SERVER + " SIP/2.0\r\n"
 
 # Contenido que vamos a enviar
-
-    
 LINE = METODO + ' sip:' + USER + "@" + SERVER + " SIP/2.0\r\n"
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
@@ -51,11 +49,11 @@ except socket.error:
 
 data = data.split('\r\n\r\n')
 
-if (data[0] == "SIP/2.0 100 Trying"): 
+if (data[0] == "SIP/2.0 100 Trying"):
         if (data[1] == "SIP/2.0 180 Ring"):
             if (data[2] == "SIP/2.0 200 OK"):
-               print "Enviando: " + ACK
-               my_socket.send(ACK + '\r\n')
+                print "Enviando: " + ACK
+                my_socket.send(ACK + '\r\n')
 
 print "Terminando socket..."
 
